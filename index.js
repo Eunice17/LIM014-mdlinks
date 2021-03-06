@@ -1,3 +1,3 @@
-module.exports = () => {
-  // ...
+module.exports.mdLinks = () => {
+  console.log('Holi boli');
 };

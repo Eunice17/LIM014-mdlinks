@@ -4,7 +4,7 @@
   "license": "BSD-3-Clause",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js",
+    "start": "node ./src/main.js",
     "test": "jest --verbose --coverage"
   },
   "version": "0.1.0",

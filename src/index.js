@@ -1,8 +1,33 @@
 const path = require('path');
 const fs = require('fs');
+const http = require('http');
+const https = require('https');
 
-const pathLocation = ((pathResolve, validate) => {
-  console.log(validate);
+const objValidate = [];
+const awaitStatus = ((esto, ht) => {
+  return new Promise((resolve) => {
+    ht.get(esto, (res) => {
+      resolve(res.statusCode);
+    });
+  });
+});
+const returnObject = (async (filterHttp, pathLink) => {
+  for (const elem of filterHttp) {
+    if (elem.startsWith('https')) {
+      const newElem = await awaitStatus(elem, https);
+      objValidate.push({ 'href': elem, 'text': newElem, 'file': pathLink });
+    } else {
+      const newElem = await awaitStatus(elem, http);
+      objValidate.push({ 'href': elem, 'text': newElem, 'file': pathLink });
+    }
+  }
+  return objValidate;
+});
+const validateLinks = ((filterHttp) => {
+  console.log(`Ignora ${filterHttp}`);
+});
+
+const pathLocation = ((pathResolve, pathLink, validate) => {
   const prome = new Promise((resolve, reject) => {
     fs.readFile(pathResolve, 'utf8', ((error, data) => {
       if (error) {
@@ -12,16 +37,15 @@ const pathLocation = ((pathResolve, validate) => {
       } else {
         const cadena = data.split(/[)(*\n\r]/);
         const filterHttp = cadena.filter((item) => item.startsWith('http'));
-        resolve(filterHttp);
+        if (validate !== true) {
+          resolve(returnObject(filterHttp, pathLink));
+        } else {
+          resolve(validateLinks(filterHttp, pathLink));
+        }
       }
     }));
   });
-  prome.then((msg) => {
-    console.log(msg);
-  });
-  prome.catch((omg) => {
-    console.log(omg);
-  });
+  return prome;
 });
 module.exports.mdLinks = (link, validate) => {
   let li = link;
@@ -32,7 +56,13 @@ module.exports.mdLinks = (link, validate) => {
   ruta = path.parse(resolvePath);
 
   if (ruta.ext === '.md') {
-    pathLocation(resolvePath, validate);
+    pathLocation(resolvePath, resolvePath, validate)
+      .then((msg) => {
+        console.log(msg);
+      })
+      .catch((omg) => {
+        console.log(omg);
+      });
   } else if (ruta.ext === '') {
     // Ruta apunta a un directorio
     pathLocation(resolvePath, validate);

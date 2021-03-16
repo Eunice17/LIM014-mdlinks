@@ -12,6 +12,10 @@
     },
     "rules": {
         "linebreak-style": 0,
-        "no-console": "off"
+        "no-console": "off",
+        "arrow-body-style": "off",
+        "no-await-in-loop": "off",
+        "no-restricted-syntax": "off",
+        "quote-props": "off"
     }
 }

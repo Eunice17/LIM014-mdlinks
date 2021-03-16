@@ -4,21 +4,21 @@ const http = require('http');
 const https = require('https');
 
 const objValidate = [];
-const awaitStatus = ((esto, ht) => {
+const awaitStatus = ((esto, ht, pathLink) => {
   return new Promise((resolve) => {
     ht.get(esto, (res) => {
-      resolve(res.statusCode);
+      resolve({ 'href': esto, 'text': res.statusCode, 'file': pathLink });
     });
   });
 });
-const returnObject = (async (filterHttp, pathLink) => {
+const returnObject = ((filterHttp, pathLink) => {
   for (const elem of filterHttp) {
     if (elem.startsWith('https')) {
-      const newElem = await awaitStatus(elem, https);
-      objValidate.push({ 'href': elem, 'text': newElem, 'file': pathLink });
+      const prueba1 = awaitStatus(elem, https, pathLink);
+      objValidate.push(prueba1);
     } else {
-      const newElem = await awaitStatus(elem, http);
-      objValidate.push({ 'href': elem, 'text': newElem, 'file': pathLink });
+      const prueba1 = awaitStatus(elem, http, pathLink);
+      objValidate.push(prueba1);
     }
   }
   return objValidate;
@@ -58,7 +58,9 @@ module.exports.mdLinks = (link, validate) => {
   if (ruta.ext === '.md') {
     pathLocation(resolvePath, resolvePath, validate)
       .then((msg) => {
-        console.log(msg);
+        Promise.all(msg).then((values) => {
+          console.log(values);
+        });
       })
       .catch((omg) => {
         console.log(omg);

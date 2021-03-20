@@ -1,4 +1,4 @@
-const mensaje = require('./index.js');
+const mensaje = require('./mdLinks.js');
 
-const link = 'C:/Users/Eunice Fiorella/testgit/LIM014-mdlinks/src/doc/case1.md';
-mensaje.mdLinks(link);
+const link = 'C:/Users/Eunice Fiorella/testgit/LIM014-mdlinks/src/doc/';
+mensaje.mdLinks(link, true);

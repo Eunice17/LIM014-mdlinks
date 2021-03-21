@@ -2,8 +2,6 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 
-const objValidate = [];
-
 module.exports.isDir = ((pathDir) => {
   const status = fs.statSync(pathDir);
   return status.isDirectory();
@@ -38,25 +36,31 @@ const awaitStatus = ((esto, ht, pathLink) => {
 });
 
 module.exports.returnObject = ((filterHttp, pathLink) => {
-  for (const elem of filterHttp) {
-    if (elem.startsWith('https')) {
-      const prueba1 = awaitStatus(elem, https, pathLink);
-      objValidate.push(prueba1);
-    } else {
-      const prueba1 = awaitStatus(elem, http, pathLink);
-      objValidate.push(prueba1);
+  const objValidate = [];
+  if (filterHttp.length > 0) {
+    for (const elem of filterHttp) {
+      if (elem.startsWith('https')) {
+        const prueba1 = awaitStatus(elem, https, pathLink);
+        objValidate.push(prueba1);
+      } else {
+        const prueba1 = awaitStatus(elem, http, pathLink);
+        objValidate.push(prueba1);
+      }
     }
   }
   return objValidate;
 });
 module.exports.validateLinks = ((filterHttp, pathValidate) => {
-  for (const elem of filterHttp) {
-    if (elem.startsWith('https')) {
-      const prueba1 = awaitStatusValidate(elem, https, pathValidate);
-      objValidate.push(prueba1);
-    } else {
-      const prueba1 = awaitStatusValidate(elem, http, pathValidate);
-      objValidate.push(prueba1);
+  const objValidate = [];
+  if (filterHttp.length > 0) {
+    for (const elem of filterHttp) {
+      if (elem.startsWith('https')) {
+        const prueba1 = awaitStatusValidate(elem, https, pathValidate);
+        objValidate.push(prueba1);
+      } else {
+        const prueba1 = awaitStatusValidate(elem, http, pathValidate);
+        objValidate.push(prueba1);
+      }
     }
   }
   return objValidate;

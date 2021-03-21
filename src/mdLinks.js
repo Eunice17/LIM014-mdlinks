@@ -2,6 +2,8 @@ const path = require('path');
 const fs = require('fs');
 const modules = require('./components/means.js');
 
+const objArray = [];
+
 const pathLocation = ((pathResolve, validate) => {
   const prome = new Promise((resolve, reject) => {
     fs.readFile(pathResolve, 'utf8', ((er, data) => {
@@ -34,6 +36,13 @@ const searchMd = ((pathDirMd, arr) => {
   }
   return arr;
 });
+const arrayDir = ((arrayDr, flag) => {
+  arrayDr.forEach((e) => {
+    objArray.push(pathLocation(e, flag));
+  });
+  return objArray;
+});
+
 module.exports.mdLinks = (link, validate) => {
   let li = link;
   let resolvePath = '';
@@ -43,9 +52,17 @@ module.exports.mdLinks = (link, validate) => {
   if (modules.isDir(resolvePath)) {
     try {
       const arrPath = [];
-      console.log(searchMd(resolvePath, arrPath, validate));
+      const array2 = searchMd(resolvePath, arrPath);
+      const dirPath = arrayDir(array2, validate);
+      dirPath.forEach((e) => {
+        e.then((ok) => {
+          Promise.all(ok).then((val) => {
+            console.log(val);
+          });
+        });
+      });
     } catch (error) {
-      console.log('Algo salió mal');
+      console.log(error);
     }
   } else if (modules.isFile(resolvePath)) {
     if (path.parse(resolvePath).ext === '.md') {

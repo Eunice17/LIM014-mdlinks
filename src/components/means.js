@@ -2,13 +2,21 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 
-module.exports.isDir = ((pathDir) => {
-  const status = fs.statSync(pathDir);
-  return status.isDirectory();
+const isDir = ((pathDir) => {
+  try {
+    const status = fs.statSync(pathDir);
+    return status.isDirectory();
+  } catch (error) {
+    return 'No such file or directory';
+  }
 });
-module.exports.isFile = ((pathFile) => {
-  const status = fs.statSync(pathFile);
-  return status.isFile();
+const isFile = ((pathFile) => {
+  try {
+    const status = fs.statSync(pathFile);
+    return status.isFile();
+  } catch (error) {
+    return 'No such file or directory';
+  }
 });
 
 const awaitStatusValidate = ((esto, ht, pathValidate) => {
@@ -35,7 +43,7 @@ const awaitStatus = ((esto, ht, pathLink) => {
   });
 });
 
-module.exports.returnObject = ((filterHttp, pathLink) => {
+const returnObject = ((filterHttp, pathLink) => {
   const objValidate = [];
   if (filterHttp.length > 0) {
     for (const elem of filterHttp) {
@@ -50,7 +58,7 @@ module.exports.returnObject = ((filterHttp, pathLink) => {
   }
   return objValidate;
 });
-module.exports.validateLinks = ((filterHttp, pathValidate) => {
+const validateLinks = ((filterHttp, pathValidate) => {
   const objValidate = [];
   if (filterHttp.length > 0) {
     for (const elem of filterHttp) {
@@ -65,3 +73,12 @@ module.exports.validateLinks = ((filterHttp, pathValidate) => {
   }
   return objValidate;
 });
+
+module.exports = {
+  awaitStatus,
+  awaitStatusValidate,
+  isFile,
+  isDir,
+  validateLinks,
+  returnObject,
+};

@@ -14,7 +14,7 @@ const pathLocation = ((pathResolve, validate) => {
   const cadena = data.split(/[)(*\n\r]/);
   const filterHttp = cadena.filter((item) => item.startsWith('http'));
   // console.log(cadena);
-  if (validate !== true) {
+  if (!validate) {
     promises = returnObject(filterHttp, pathResolve);
   } else {
     promises = validateLinks(filterHttp, pathResolve);

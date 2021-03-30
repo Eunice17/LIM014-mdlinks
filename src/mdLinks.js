@@ -13,7 +13,6 @@ const pathLocation = ((pathResolve, validate) => {
   // const filterText = data.match(/\[([\s\w]+)\]/g);
   const cadena = data.split(/[)(*\n\r]/);
   const filterHttp = cadena.filter((item) => item.startsWith('http'));
-  // console.log(cadena);
   if (!validate) {
     promises = returnObject(filterHttp, pathResolve);
   } else {

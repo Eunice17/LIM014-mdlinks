@@ -10,8 +10,10 @@ const {
 const pathLocation = ((pathResolve, validate) => {
   let promises;
   const data = fs.readFileSync(pathResolve).toString();
+  // const filterText = data.match(/\[([\s\w]+)\]/g);
   const cadena = data.split(/[)(*\n\r]/);
   const filterHttp = cadena.filter((item) => item.startsWith('http'));
+  // console.log(cadena);
   if (validate !== true) {
     promises = returnObject(filterHttp, pathResolve);
   } else {

@@ -3,6 +3,10 @@
   "homepage": "https://github.com/Eunice17/LIM014-mdlinks/blob/main/README.md",
   "license": "BSD-3-Clause",
   "main": "main.js",
+  "bin": {
+    "mdLink": "./src/bin/cli-mdlink.js"
+  },
+  "preferGlobal": true,
   "scripts": {
     "start": "node ./src/main.js",
     "test": "jest --verbose --coverage"

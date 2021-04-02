@@ -16,6 +16,7 @@
         "arrow-body-style": "off",
         "no-await-in-loop": "off",
         "no-restricted-syntax": "off",
-        "quote-props": "off"
+        "quote-props": "off",
+        "no-param-reassign": "off"
     }
 }

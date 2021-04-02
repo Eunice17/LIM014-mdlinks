@@ -4,19 +4,32 @@ const {
   isFile,
   isDir,
   validateLinks,
-  returnObject,
 } = require('./components/means');
 
+const filterLinks = ((data, filterHttp, pathResolve) => {
+  const arrayText = [];
+  const arrayLinks = [];
+  for (let i = 0; i < data.length; i += 1) {
+    if (data[i].startsWith('http')) {
+      arrayText.push(data[i - 2]);
+    }
+  }
+  for (let j = 0; j < filterHttp.length; j += 1) {
+    arrayLinks.push({ 'href': filterHttp[j], 'text': arrayText[j], 'file': pathResolve });
+  }
+  return arrayLinks;
+});
 const pathLocation = ((pathResolve, validate) => {
   let promises;
   const data = fs.readFileSync(pathResolve).toString();
-  // const filterText = data.match(/\[([\s\w]+)\]/g);
-  const cadena = data.split(/[)(*\n\r]/);
+  const cadena = data.split(/[)(*\]'\n[\r]/);
   const filterHttp = cadena.filter((item) => item.startsWith('http'));
+  const arrayObject = filterLinks(cadena, filterHttp, pathResolve);
   if (!validate) {
-    promises = returnObject(filterHttp, pathResolve);
+    promises = arrayObject;
   } else {
-    promises = validateLinks(filterHttp, pathResolve);
+    const prom = validateLinks(arrayObject);
+    promises = Promise.all(prom);
   }
   return promises;
 });
@@ -43,21 +56,18 @@ const arrayDir = ((arrayDr, flag) => {
 });
 
 const mdLinks = (link, validate) => new Promise((resolve, reject) => {
-  let li = link;
-  let resolvePath = '';
-  li = path.normalize(link);
-  resolvePath = path.resolve(li);
+  const li = path.normalize(link);
+  const resolvePath = path.resolve(li);
   if (isDir(resolvePath)) {
     const arrPath = [];
     const array2 = searchMd(resolvePath, arrPath);
     const dirPath = arrayDir(array2, validate);
-    const prueba = dirPath.map((element) => Promise.all(element));
-    const arrayPromise = Promise.all(prueba);
+    const arrayPromise = Promise.all(dirPath);
     resolve(arrayPromise);
   } else if (isFile(resolvePath)) {
     if (path.parse(resolvePath).ext === '.md') {
       const promises = pathLocation(resolvePath, validate);
-      resolve(Promise.all(promises));
+      resolve(promises);
     } else {
       reject(new Error(`La ruta apunta a un archivo con diferente extensión Marckdown, type: ${path.parse(resolvePath).ext}`));
     }

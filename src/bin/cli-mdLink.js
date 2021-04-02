@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 const path = require('path');
 const { mdLinks } = require('../mdLinks.js');
-const { statsMd, statsValidateMd, links } = require('../components/means-cli.js');
+const { isFile } = require('../components/means.js');
+const {
+  statsMd,
+  statsValidateMd,
+  links,
+  linkValidate,
+} = require('../components/means-cli.js');
 
 if (process.argv.length > 5) {
   console.log('Exceso de comandos, ¡Por favor ingrese comandos correctos!');
@@ -10,14 +16,15 @@ if (process.argv.length > 5) {
 } else {
   const li = path.normalize(process.argv[2]);
   const resolvePath = path.resolve(li);
+  const flag = isFile(resolvePath);
   if (process.argv.length === 3) {
     mdLinks(resolvePath).then((msg) => {
-      links(msg);
+      links(msg, flag);
     });
   } else if (process.argv.length === 4) {
     if (process.argv[3].toLowerCase() === '--validate') {
       mdLinks(resolvePath, true).then((msg) => {
-        links(msg);
+        linkValidate(msg, flag);
       });
     } else if (process.argv[3].toLowerCase() === '--stats') {
       const stats = statsMd();

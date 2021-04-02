@@ -19,54 +19,31 @@ const isFile = ((pathFile) => {
   }
 });
 
-const awaitStatusValidate = ((esto, ht, pathValidate) => {
+const awaitStatusValidate = ((link, ht) => {
   return new Promise((resolve) => {
-    ht.get(esto, (res) => {
-      if (res.statusCode === 404) {
-        resolve({
-          'href': esto, 'text': res.statusCode, 'file': pathValidate, 'status': 'Fail',
-        });
+    ht.get(link.href, (res) => {
+      if (res.statusCode >= 400 && res.statusCode <= 599) {
+        link.status = res.statusCode;
+        link.statusText = 'Fail';
+        resolve(link);
       } else {
-        resolve({
-          'href': esto, 'text': res.statusCode, 'file': pathValidate, 'status': 'Ok',
-        });
+        link.status = res.statusCode;
+        link.statusText = 'Ok';
+        resolve(link);
       }
     });
   });
 });
 
-const awaitStatus = ((esto, ht, pathLink) => {
-  return new Promise((resolve) => {
-    ht.get(esto, (res) => {
-      resolve({ 'href': esto, 'text': res.statusCode, 'file': pathLink });
-    });
-  });
-});
-
-const returnObject = ((filterHttp, pathLink) => {
+const validateLinks = ((arrayObject) => {
   const objValidate = [];
-  if (filterHttp.length > 0) {
-    for (const elem of filterHttp) {
-      if (elem.startsWith('https')) {
-        const prueba1 = awaitStatus(elem, https, pathLink);
+  if (arrayObject.length > 0) {
+    for (const elem of arrayObject) {
+      if (elem.href.startsWith('https')) {
+        const prueba1 = awaitStatusValidate(elem, https);
         objValidate.push(prueba1);
       } else {
-        const prueba1 = awaitStatus(elem, http, pathLink);
-        objValidate.push(prueba1);
-      }
-    }
-  }
-  return objValidate;
-});
-const validateLinks = ((filterHttp, pathValidate) => {
-  const objValidate = [];
-  if (filterHttp.length > 0) {
-    for (const elem of filterHttp) {
-      if (elem.startsWith('https')) {
-        const prueba1 = awaitStatusValidate(elem, https, pathValidate);
-        objValidate.push(prueba1);
-      } else {
-        const prueba1 = awaitStatusValidate(elem, http, pathValidate);
+        const prueba1 = awaitStatusValidate(elem, http);
         objValidate.push(prueba1);
       }
     }
@@ -75,10 +52,8 @@ const validateLinks = ((filterHttp, pathValidate) => {
 });
 
 module.exports = {
-  awaitStatus,
   awaitStatusValidate,
   isFile,
   isDir,
   validateLinks,
-  returnObject,
 };

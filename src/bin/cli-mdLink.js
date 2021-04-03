@@ -3,10 +3,7 @@ const path = require('path');
 const { mdLinks } = require('../mdLinks.js');
 const { isFile } = require('../components/means.js');
 const {
-  statsMd,
-  statsValidateMd,
-  links,
-  linkValidate,
+  statsMd, statsValidateMd, links, linkValidate,
 } = require('../components/means-cli.js');
 
 if (process.argv.length > 5) {
@@ -19,22 +16,24 @@ if (process.argv.length > 5) {
   const flag = isFile(resolvePath);
   if (process.argv.length === 3) {
     mdLinks(resolvePath).then((msg) => {
-      links(msg, flag);
+      console.log(links(msg, flag));
     });
   } else if (process.argv.length === 4) {
     if (process.argv[3].toLowerCase() === '--validate') {
       mdLinks(resolvePath, true).then((msg) => {
-        linkValidate(msg, flag);
+        console.log(linkValidate(msg, flag));
       });
     } else if (process.argv[3].toLowerCase() === '--stats') {
-      const stats = statsMd();
-      console.log(stats);
+      mdLinks(resolvePath).then((msg) => {
+        console.log(statsMd(msg, flag));
+      });
     } else {
       console.log('Ingrese comando válido, --stats o --validate');
     }
   } else if ((process.argv[3].toLowerCase() === '--validate' && process.argv[4].toLowerCase() === '--stats') || (process.argv[4].toLowerCase() === '--validate' && process.argv[3].toLowerCase() === '--stats')) {
-    const statsValidate = statsValidateMd();
-    console.log(statsValidate);
+    mdLinks(resolvePath, true).then((msg) => {
+      console.log(statsValidateMd(msg, flag));
+    });
   } else {
     console.log('Ingrese comandos válidos, --stats y --validate');
   }

@@ -10,12 +10,16 @@ const filterLinks = ((data, filterHttp, pathResolve) => {
   const arrayText = [];
   const arrayLinks = [];
   for (let i = 0; i < data.length; i += 1) {
-    if (data[i].startsWith('http')) {
+    if (/^(https?:\/\/)/.test(data[i])) {
       arrayText.push(data[i - 2]);
     }
   }
   for (let j = 0; j < filterHttp.length; j += 1) {
-    arrayLinks.push({ 'href': filterHttp[j], 'text': arrayText[j], 'file': pathResolve });
+    if (arrayText[j].length > 0) {
+      arrayLinks.push({ 'href': filterHttp[j], 'text': arrayText[j], 'file': pathResolve });
+    } else {
+      arrayLinks.push({ 'href': filterHttp[j], 'text': 'Text default', 'file': pathResolve });
+    }
   }
   return arrayLinks;
 });
@@ -23,7 +27,8 @@ const pathLocation = ((pathResolve, validate) => {
   let promises;
   const data = fs.readFileSync(pathResolve).toString();
   const cadena = data.split(/[)(*\]'\n[\r]/);
-  const filterHttp = cadena.filter((item) => item.startsWith('http'));
+  // const filterHttp = cadena.filter((item) => item.startsWith('http'));
+  const filterHttp = cadena.filter((item) => item.match(/^(https?:\/\/)/));
   const arrayObject = filterLinks(cadena, filterHttp, pathResolve);
   if (!validate) {
     promises = arrayObject;

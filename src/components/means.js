@@ -1,6 +1,7 @@
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
+const { awaitStatusValidate } = require('./status');
 
 const isDir = ((pathDir) => {
   try {
@@ -17,22 +18,6 @@ const isFile = ((pathFile) => {
   } catch (error) {
     return 'No such file or directory';
   }
-});
-
-const awaitStatusValidate = ((link, ht) => {
-  return new Promise((resolve) => {
-    ht.get(link.href, (res) => {
-      if (res.statusCode >= 404 && res.statusCode <= 599) {
-        link.status = res.statusCode;
-        link.statusText = 'Fail';
-        resolve(link);
-      } else {
-        link.status = res.statusCode;
-        link.statusText = 'Ok';
-        resolve(link);
-      }
-    });
-  });
 });
 
 const validateLinks = ((arrayObject) => {
@@ -52,7 +37,6 @@ const validateLinks = ((arrayObject) => {
 });
 
 module.exports = {
-  awaitStatusValidate,
   isFile,
   isDir,
   validateLinks,

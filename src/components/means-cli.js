@@ -1,7 +1,18 @@
 const { table } = require('table');
 const clc = require('cli-color');
 const path = require('path');
+const figlet = require('figlet');
 
+const banner = (() => {
+  figlet('MD-LINK', (err, data) => {
+    if (err) {
+      console.log('Something went wrong...');
+      console.dir(err);
+      return;
+    }
+    console.log(data);
+  });
+});
 const drawTable = ((show) => {
   const config = {
     border: {
@@ -23,15 +34,38 @@ const drawTable = ((show) => {
     },
   };
   const output = table(show, config); // './src/doc/case1.md'
+  banner();
   return output;
+});
+const help = (() => {
+  const show = [];
+  const head = [`${clc.greenBright('************************ AYUDA AIDER HELP HILFE AIUTO ************************')}`];
+  const body = [
+    `Para empezar a usar corractamente la libreria, debe de ingresar\n
+    primero el comando ${clc.greenBright('mdLink')} seguido del path del archivo o directorio:\n
+    $>${clc.greenBright('mdLink ./example.md')}`,
+  ];
+  const sg = [`${clc.greenBright('Se sugiere escribir el path en forma relativa, si es absoluta\nescribirlo entre comillas simples')}`];
+  const ejm = [`${clc.cyanBright('******************** Formas correctas de uso de comandos ********************')}\n
+  ${clc.yellowBright('$ mdLink ./example.md')}\n
+  ${clc.yellowBright('$ mdLink ./doc/')}\n
+  ${clc.yellowBright('$ mdLink ./example.md --validate')}\n
+  ${clc.yellowBright('$ mdLink ./example.md --validate --stats')}\n
+  ${clc.yellowBright('$ mdLink ./doc/ --validate')}\n
+  ${clc.yellowBright('$ mdLink ./doc/ --validate --stats')}\n`];
+  show.push(head);
+  show.push(body);
+  show.push(sg);
+  show.push(ejm);
+  return drawTable(show);
 });
 const eachFile = ((msg) => {
   const showObject = [];
   showObject.push([clc.cyanBright('LINKS'), clc.cyanBright('TEXT'), clc.cyanBright('FILE')]);
   for (let i = 0; i < msg.length; i += 1) {
     const arrayHref = [];
-    arrayHref.push((msg[i].href.length > 39 ? clc.yellowBright(`${msg[i].href.slice(0, 49)}...`) : clc.yellowBright(msg[i].href)));
-    arrayHref.push(msg[i].text.slice(0, 39));
+    arrayHref.push((msg[i].href.length > 49 ? clc.yellowBright(`${msg[i].href.slice(0, 49)}...`) : clc.yellowBright(msg[i].href)));
+    arrayHref.push((msg[i].text.length > 39 ? `${msg[i].text.slice(0, 39)}...` : msg[i].text));
     arrayHref.push(clc.blueBright(path.relative('0', msg[i].file)));
     showObject.push(arrayHref);
   }
@@ -48,8 +82,8 @@ const links = ((msg, flag) => {
     msg.forEach((element) => {
       for (let i = 0; i < element.length; i += 1) {
         const arrayHref = [];
-        arrayHref.push((element[i].href.length > 39 ? clc.yellowBright(`${element[i].href.slice(0, 49)}...`) : clc.yellowBright(element[i].href.slice(0, 49))));
-        arrayHref.push(element[i].text.slice(0, 49));
+        arrayHref.push((element[i].href.length > 49 ? clc.yellowBright(`${element[i].href.slice(0, 49)}...`) : clc.yellowBright(element[i].href.slice(0, 49))));
+        arrayHref.push((element[i].text.length > 39 ? `${element[i].text.slice(0, 39)}...` : element[i].text));
         arrayHref.push(clc.blueBright(path.relative('0', element[i].file)));
         showObject.push(arrayHref);
       }
@@ -63,8 +97,8 @@ const eachFileValidate = ((msg) => {
   showObject.push([clc.cyanBright('LINKS'), clc.cyanBright('TEXT'), clc.cyanBright('FILE'), clc.cyanBright('STATUS'), clc.cyanBright('TEXT STATUS')]);
   for (let i = 0; i < msg.length; i += 1) {
     const arrayHref = [];
-    arrayHref.push((msg[i].href.length > 39 ? clc.yellowBright(`${msg[i].href.slice(0, 49)}...`) : clc.yellowBright(msg[i].href.slice(0, 49))));
-    arrayHref.push(msg[i].text.slice(0, 49));
+    arrayHref.push((msg[i].href.length > 49 ? clc.yellowBright(`${msg[i].href.slice(0, 49)}...`) : clc.yellowBright(msg[i].href.slice(0, 49))));
+    arrayHref.push((msg[i].text.length > 39 ? `${msg[i].text.slice(0, 39)}...` : msg[i].text));
     arrayHref.push((msg[i].statusText === 'Ok' ? clc.blueBright(path.relative('0', msg[i].file)) : clc.bgRedBright(path.relative('0', msg[i].file))));
     arrayHref.push((msg[i].statusText === 'Ok' ? clc.greenBright(msg[i].status) : clc.redBright(msg[i].status)));
     arrayHref.push((msg[i].statusText === 'Ok' ? clc.greenBright(msg[i].statusText) : clc.redBright(msg[i].statusText)));
@@ -84,8 +118,8 @@ const linkValidate = ((msg, flag) => {
       for (let i = 0; i < element.length; i += 1) {
         const arrayHref = [];
         const corte = element[i].href;
-        arrayHref.push((element[i].href.length > 39 ? clc.yellowBright(`${corte.slice(0, 49)}...`) : clc.yellowBright(corte.slice(0, 49))));
-        arrayHref.push(element[i].text.slice(0, 49));
+        arrayHref.push((element[i].href.length > 49 ? clc.yellowBright(`${corte.slice(0, 49)}...`) : clc.yellowBright(corte.slice(0, 49))));
+        arrayHref.push((element[i].text > 39 ? `${element[i].text.slice(0, 39)}...` : element[i].text));
         arrayHref.push((element[i].statusText === 'Ok' ? clc.blueBright(path.relative('0', element[i].file)) : clc.bgRed(path.relative('0', element[i].file))));
         arrayHref.push((element[i].statusText === 'Ok' ? clc.greenBright(element[i].status) : clc.redBright(element[i].status)));
         arrayHref.push((element[i].statusText === 'Ok' ? clc.greenBright(element[i].statusText) : clc.redBright(element[i].statusText)));
@@ -168,4 +202,6 @@ module.exports = {
   statsMd,
   statsValidateMd,
   linkValidate,
+  drawTable,
+  help,
 };

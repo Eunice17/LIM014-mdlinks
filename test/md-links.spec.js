@@ -1,3 +1,5 @@
+jest.mock('../src/components/status.js');
+
 const data = require('./data.js');
 const {
   isFile,
@@ -7,6 +9,17 @@ const {
 const {
   mdLinks,
 } = require('../src/mdLinks');
+
+// describe('Mock https', () => {
+//   it('Is funcion', () => {
+//     expect(typeof validateLinks).toBe('function');
+//   });
+//   test('Case directory', () => {
+//     const dato = validateLinks([data.obj[0].http]);
+//     return expect(dato[0]).resolves.toEqual(data.obj[0].httpStatus);
+//     // expect(validateLinks([data.obj[0].http])).toEqual([data.obj[0].httpStatus]);
+//   });
+// });
 
 describe('mdLinks', () => {
   it('Is function', () => {
@@ -30,7 +43,8 @@ describe('mdLinks', () => {
   });
   test('Case type .txt', () => {
     return expect(mdLinks(data.obj[0].pathTxt, false))
-      .rejects.toStrictEqual(new Error('La ruta apunta a un archivo con diferente extensión Marckdown, type: .txt'));
+      .rejects.toStrictEqual(new Error
+('La ruta apunta a un archivo con diferente extensión Marckdown, type: .txt'));
   });
 });
 describe('Function isDirectory', () => {

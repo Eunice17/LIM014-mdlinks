@@ -2,6 +2,18 @@ module.exports.obj = [{
   'path': 'C:/Users/Eunice Fiorella/testgit/LIM014-mdlinks/src/doc/case1.md',
   'pathTxt': 'C:/Users/Eunice Fiorella/testgit/LIM014-mdlinks/src/doc/perro.txt',
   'dir': 'C:\\Users\\Eunice Fiorella\\testgit\\LIM014-mdlinks\\src\\doc',
+  'http': {
+    href: 'https://git-scm.com/',
+    text: 'Git',
+    file: 'C:\\Users\\Eunice Fiorella\\testgit\\LIM014-mdlinks\\src\\doc\\case1.md',
+  },
+  'httpStatus': {
+    href: 'https://git-scm.com/',
+    text: 'Git',
+    file: 'C:\\Users\\Eunice Fiorella\\testgit\\LIM014-mdlinks\\src\\doc\\case1.md',
+    status: 200,
+    statusText: 'Ok',
+  },
   'rst': [
     {
       href: 'https://git-scm.com/',

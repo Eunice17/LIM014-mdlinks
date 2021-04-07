@@ -27,7 +27,6 @@ const pathLocation = ((pathResolve, validate) => {
   let promises;
   const data = fs.readFileSync(pathResolve).toString();
   const cadena = data.split(/[)(*\]'\n[\r]/);
-  // const filterHttp = cadena.filter((item) => item.startsWith('http'));
   const filterHttp = cadena.filter((item) => item.match(/^(https?:\/\/)/));
   const arrayObject = filterLinks(cadena, filterHttp, pathResolve);
   if (!validate) {

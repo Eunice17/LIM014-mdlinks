@@ -10,17 +10,6 @@ const {
   mdLinks,
 } = require('../src/mdLinks');
 
-// describe('Mock https', () => {
-//   it('Is funcion', () => {
-//     expect(typeof validateLinks).toBe('function');
-//   });
-//   test('Case directory', () => {
-//     const dato = validateLinks([data.obj[0].http]);
-//     return expect(dato[0]).resolves.toEqual(data.obj[0].httpStatus);
-//     // expect(validateLinks([data.obj[0].http])).toEqual([data.obj[0].httpStatus]);
-//   });
-// });
-
 describe('mdLinks', () => {
   it('Is function', () => {
     expect(typeof mdLinks).toBe('function');

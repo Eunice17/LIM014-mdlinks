@@ -3,7 +3,7 @@
 ## Índice
 
 * [1. Preámbulo](#1-preámbulo)
-* [2. Primeros pasos](#2-primeros pasos)
+* [2. Primeros pasos](#2-primeros-pasos)
 * [3. API de la librería](#3-api-de-la-librería)
 * [4. Entregables](#4-entregables)
 * [5. Hacker edition](#5-hacker-edition)
@@ -36,9 +36,9 @@ Para poder obtener los links de un archivo markdown  o archivos markdown que se 
 
 `> mdLink <path>`
 
-Si desea obtener los links de un archivo markdown ingrese el path de ubicación del archivo, se recomienda ingresar un path relativo, ejemplo: **> mdLink ./doc/example.md **
+Si desea obtener los links de un archivo markdown ingrese el path de ubicación del archivo, se recomienda ingresar un path relativo, ejemplo: **> mdLink ./doc/example.md**
 
-Si desea obtener los links de un directorio que contiene archivos markdown, ingrese un path relativo de la ubicación del directorio, ejemplo: **> mdLink ./doc/ **
+Si desea obtener los links de un directorio que contiene archivos markdown, ingrese un path relativo de la ubicación del directorio, ejemplo: **> mdLink ./doc/**
 
 > *Si desea usar un path absoluto, se recomienda escribirlo entre comillas dobles o simples.*
 
@@ -92,7 +92,7 @@ console.log(msg);
 });
 ```
 el API tiene una función llamada **mdLinks** que recibe dos parametros, un **String** y **Boolean**, el primer parámetro debe de ser una ruta que apunte al archivo markdown que desea analizar; el segundo parámetro puede ser: **false**/**true**, si no desea validar los links, ingrese **false** como segundo parámetro de lo contrario ingrese **true**.
-La función **mdLink** retorna una promesa que debe de ser consumida para poder visualizar los resultados.
+La función **mdLinks** retorna una promesa que debe de ser consumida para poder visualizar los resultados.
 
 ##### Ejemplo gráfica de resultados por consola
 

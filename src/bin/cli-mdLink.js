@@ -4,7 +4,7 @@ const clc = require('cli-color');
 const { mdLinks } = require('../mdLinks.js');
 const { isFile } = require('../components/means.js');
 const {
-  statsMd, statsValidateMd, links, linkValidate, help,
+  statsMd, statsValidateMd, links, linkValidate, help, banner,
 } = require('../components/means-cli.js');
 
 if (process.argv.length > 5) {
@@ -21,16 +21,20 @@ if (process.argv.length > 5) {
     if (process.argv[2].toLowerCase() === '--help') {
       console.log(help());
     } else {
-      mdLinks(resolvePath).then((msg) => {
-        if (msg.length > 0) {
-          console.log(links(msg, flag));
-        } else {
-          console.log(`No se encontraron links en ${resolvePath}`);
-        }
-      });
+      banner();
+      setTimeout(() => {
+        mdLinks(resolvePath).then((msg) => {
+          if (msg.length > 0) {
+            console.log(links(msg, flag));
+          } else {
+            console.log(`No se encontraron links en ${resolvePath}`);
+          }
+        });
+      }, 2000);
     }
   } else if (process.argv.length === 4) {
     if (process.argv[3].toLowerCase() === '--validate') {
+      banner();
       mdLinks(resolvePath, true).then((msg) => {
         if (msg.length > 0) {
           console.log(linkValidate(msg, flag));
@@ -39,11 +43,14 @@ if (process.argv.length > 5) {
         }
       });
     } else if (process.argv[3].toLowerCase() === '--stats') {
-      mdLinks(resolvePath).then((msg) => {
-        console.log(statsMd(msg, flag));
-      });
+      banner();
+      setTimeout(() => {
+        mdLinks(resolvePath).then((msg) => {
+          console.log(statsMd(msg, flag));
+        });
+      }, 2000);
     } else {
-      console.log(`Ingrese comandos válido:
+      console.log(`Ingrese comandos válidos:
       \n${clc.yellowBright('mdLink <path> --stats')}
       \n${clc.yellowBright('mdLink <path> --validate')}
       \n${clc.yellowBright('mdLink <path> --stats --validate')}
@@ -51,11 +58,12 @@ if (process.argv.length > 5) {
       \n${clc.yellowBright('mdLink --help')}`);
     }
   } else if ((process.argv[3].toLowerCase() === '--validate' && process.argv[4].toLowerCase() === '--stats') || (process.argv[4].toLowerCase() === '--validate' && process.argv[3].toLowerCase() === '--stats')) {
+    banner();
     mdLinks(resolvePath, true).then((msg) => {
       console.log(statsValidateMd(msg, flag));
     });
   } else {
-    console.log(`Ingrese comandos válido:
+    console.log(`Ingrese comandos válidos:
       \n${clc.yellowBright('mdLink <path> --stats')}
       \n${clc.yellowBright('mdLink <path> --validate')}
       \n${clc.yellowBright('mdLink <path> --stats --validate')}

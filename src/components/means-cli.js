@@ -10,7 +10,8 @@ const banner = (() => {
       console.dir(err);
       return;
     }
-    console.log(data);
+    console.log(clc.greenBright(data));
+    console.log(clc.yellowBright('Wait a moment...'));
   });
 });
 const drawTable = ((show) => {
@@ -34,7 +35,6 @@ const drawTable = ((show) => {
     },
   };
   const output = table(show, config); // './src/doc/case1.md'
-  banner();
   return output;
 });
 const help = (() => {
@@ -45,7 +45,7 @@ const help = (() => {
     primero el comando ${clc.greenBright('mdLink')} seguido del path del archivo o directorio:\n
     $>${clc.greenBright('mdLink ./example.md')}`,
   ];
-  const sg = [`${clc.greenBright('Se sugiere escribir el path en forma relativa, si es absoluta\nescribirlo entre comillas simples')}`];
+  const sg = [`${clc.greenBright('Se sugiere escribir el path en forma relativa, si la ruta contiene espacios\nescribirla entre comillas simples')}`];
   const ejm = [`${clc.cyanBright('******************** Formas correctas de uso de comandos ********************')}\n
   ${clc.yellowBright('$ mdLink ./example.md')}\n
   ${clc.yellowBright('$ mdLink ./doc/')}\n
@@ -204,4 +204,5 @@ module.exports = {
   linkValidate,
   drawTable,
   help,
+  banner,
 };

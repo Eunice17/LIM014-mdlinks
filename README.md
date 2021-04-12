@@ -44,7 +44,7 @@ Si desea obtener los links de un directorio que contiene archivos markdown, ingr
 
 ##### Ejemplo gráfica de resultados por consola
 
-[![Links de archivo markdown](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkPath.PNG "Links de archivo markdown")](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkPath.PNG "Links de archivo markdown")
+![Links de archivo markdown](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkPath.PNG)
 
 Si desea validar los links encontrados en el archivo o directorio ingrese el siguiente comando:
 
@@ -52,7 +52,7 @@ Si desea validar los links encontrados en el archivo o directorio ingrese el sig
 
 ##### Ejemplo gráfica de resultados por consola
 
-[![Links validados](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkValidate.PNG "Links validados")](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkValidate.PNG "Links validados")
+![Links validados](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkValidate.PNG)
 
 Si desea obtener estadistica de los links encontrados (Total de links y links únicos) en el/los archivos markdown, ingrese el siguiente comando:
 
@@ -60,7 +60,7 @@ Si desea obtener estadistica de los links encontrados (Total de links y links ú
 
 ##### Ejemplo gráfica de resultados por consola
 
-[![Links estadística ](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkStats.PNG "Links estadística ")](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkStats.PNG "Links estadística ")
+![Links estadística](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkStats.PNG)
 
 Si quieres obtener estadistica y validación de los links encontrados en el/los archivos markdown ingrese la siguiente combinación de comandos:
 
@@ -70,7 +70,7 @@ Si quieres obtener estadistica y validación de los links encontrados en el/los 
 
 ##### Ejemplo gráfica de resultados por consola
 
-[![links validados y estadística](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkStatsValidate.PNG "links validados y estadística")](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkStatsValidate.PNG "links validados y estadística")
+![links validados y estadística](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkStatsValidate.PNG)
 
 Si necesita ayuda ingrese el comando **--help** seguido del comando **mdLink**
 
@@ -78,7 +78,7 @@ Si necesita ayuda ingrese el comando **--help** seguido del comando **mdLink**
 
 ##### Ejemplo gráfica de resultados por consola
 
-[![help](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkHelp.PNG "help")](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkHelp.PNG "help")
+![help](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/mdLinkHelp.PNG)
 
 ## 3. API de la librería
 
@@ -96,7 +96,7 @@ La función **mdLinks** retorna una promesa que debe de ser consumida para poder
 
 ##### Ejemplo gráfica de resultados por consola
 
-[![prueba API](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/apiTrue.PNG "prueba API")](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/apiTrue.PNG "prueba API")
+![prueba API](https://raw.githubusercontent.com/Eunice17/LIM014-mdlinks/main/src/img/apiTrue.PNG)
 
 ## 4. Entregables
 

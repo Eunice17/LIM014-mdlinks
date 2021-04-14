@@ -16,7 +16,7 @@
     "start": "node ./src/main.js",
     "test": "jest --verbose --coverage"
   },
-  "version": "0.1.0",
+  "version": "0.1.3",
   "devDependencies": {
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",

@@ -1,4 +1,3 @@
-// const { isFile } = require('../means');
 const data = require('../../../test/data');
 
 const awaitStatusValidate = ((link) => {

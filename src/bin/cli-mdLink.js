@@ -29,6 +29,9 @@ if (process.argv.length > 5) {
           } else {
             console.log(`No se encontraron links en ${resolvePath}`);
           }
+        })
+        .catch((omg) => {
+          console.log(new Error(omg));
         });
       }, 2000);
     }
@@ -41,12 +44,18 @@ if (process.argv.length > 5) {
         } else {
           console.log(`No se encontraron links en ${resolvePath}`);
         }
+      })
+      .catch((omg) => {
+        console.log(new Error(omg));
       });
     } else if (process.argv[3].toLowerCase() === '--stats') {
       banner();
       setTimeout(() => {
         mdLinks(resolvePath).then((msg) => {
           console.log(statsMd(msg, flag));
+        })
+        .catch((omg) => {
+          console.log(new Error(omg));
         });
       }, 2000);
     } else {
@@ -61,6 +70,9 @@ if (process.argv.length > 5) {
     banner();
     mdLinks(resolvePath, true).then((msg) => {
       console.log(statsValidateMd(msg, flag));
+    })
+    .catch((omg) => {
+      console.log(new Error(omg));
     });
   } else {
     console.log(`Ingrese comandos válidos:
